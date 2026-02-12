@@ -4,11 +4,12 @@ import pytz
 from flask import Flask, request, jsonify, render_template
 from simple_salesforce import Salesforce
 # ---------------- SALESFORCE LOGIN ----------------
+import os
 sf = Salesforce(
-    username="winfomidev@winfomi.com.dev9",
-    password="Welovewinfomi$7",
-    security_token="gRJ29f2mZUVTcYfzt16dqb0pT",
-    domain="test"
+    username=os.getenv("SF_USERNAME"),
+    password=os.getenv("SF_PASSWORD"),
+    security_token=os.getenv("SF_SECURITY_TOKEN"),
+    domain=os.getenv("SF_DOMAIN", "test")
 )
 # ---------------- FLASK APP ----------------
 app = Flask(__name__)
@@ -144,4 +145,6 @@ def chat():
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     print("✅ HR Chatbot Backend Running")
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
