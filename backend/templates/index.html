@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HR Recruitment AI Assistant</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #fde8f9, #ddeef9);
+        color: #333;
+    }
+    /* ---------- HERO ---------- */
+    .hero {
+        padding: 80px 10%;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+    .hero h1 {
+        font-size: 48px;
+        color: #5b21b6;
+    }
+    .hero p {
+        font-size: 18px;
+        line-height: 1.7;
+        margin-top: 15px;
+    }
+    .hero-highlight {
+        margin-top: 30px;
+        display: flex;
+        gap: 20px;
+    }
+    .pill {
+        background: #ede9fe;
+        padding: 10px 18px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #5b21b6;
+    }
+    /* ---------- ILLUSTRATION ---------- */
+    .hero-box {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .hero-box h3 {
+        margin-bottom: 10px;
+        color: #2563eb;
+    }
+    .flow {
+        margin-top: 20px;
+        display: grid;
+        gap: 12px;
+    }
+    .step {
+        background: #f0fdf4;
+        padding: 12px 15px;
+        border-radius: 12px;
+        font-size: 14px;
+    }
+    /* ---------- FEATURES ---------- */
+    .features {
+        padding: 60px 10%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 30px;
+    }
+    .card {
+        background: white;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    }
+    .card h3 {
+        margin-bottom: 10px;
+    }
+    .mint { background: #ecfdf5; }
+    .peach { background: #fff7ed; }
+    .lavender { background: #f5f3ff; }
+    .sky { background: #f9eefa; }
+    /* ---------- CHAT ICON ---------- */
+    #chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #5a44b5, #36659a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    /* ---------- CHAT WINDOW ---------- */
+    #chat-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 340px;
+        height: 440px;
+        background: #fafafa;
+        border-radius: 18px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .chat-header {
+        background: linear-gradient(135deg, #c4b5fd, #93c5fd);
+        padding: 14px;
+        color: #1e1b4b;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+    }
+    .chat-body {
+        flex: 1;
+        padding: 12px;
+        overflow-y: auto;
+        font-size: 14px;
+        /* ✅ ADDED */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .chat-input {
+        display: flex;
+        border-top: 1px solid #ddd;
+    }
+    .chat-input input {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        outline: none;
+    }
+    .chat-input button {
+        background: #462d94;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        cursor: pointer;
+    }
+    /* ========================= */
+    /* ✅ CHAT MESSAGE STYLING  */
+    /* ========================= */
+    .user {
+        align-self: flex-end;
+        background: #ddd6fe;
+        color: #1e1b4b;
+        padding: 10px 14px;
+        border-radius: 14px;
+        max-width: 75%;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+    }
+    .bot {
+        align-self: flex-start;
+        background: #ecfdf5;
+        color: #064e3b;
+        padding: 10px 14px;
+        border-radius: 14px;
+        max-width: 75%;
+        margin-right: auto;
+        border-bottom-left-radius: 4px;
+        white-space: pre-line;
+    }
+</style>
+</head>
+<body>
+<!-- HERO -->
+<section class="hero">
+    <div>
+        <h1>AI-Powered HR Recruitment Assistant</h1>
+        <p>
+            A smart recruitment companion designed for HR teams.
+            Ask questions in natural language and instantly retrieve
+            candidate details, hiring status, and skills directly from Salesforce.
+        </p>
+        <div class="hero-highlight">
+            <div class="pill">🤖 AI Chat</div>
+            <div class="pill">📊 Salesforce Data</div>
+            <div class="pill">💼 HR Workflow</div>
+        </div>
+    </div>
+    <div class="hero-box">
+        <h3>How it works</h3>
+        <div class="flow">
+            <div class="step">👤 HR asks</div>
+            <div class="step">🧠 AI extracts</div>
+            <div class="step">🔗 Salesforce queried securely</div>
+            <div class="step">✅ Candidate details returned instantly</div>
+        </div>
+    </div>
+</section>
+<!-- FEATURES -->
+<section class="features">
+    <div class="card mint">
+        <h3>📄 Candidate Intelligence</h3>
+        <p>View candidate status, contact details, and skills without navigating Salesforce manually.</p>
+    </div>
+    <div class="card peach">
+        <h3>🧠 Natural Language Queries</h3>
+        <p>Recruiters can ask questions like talking to a human HR assistant.</p>
+    </div>
+    <div class="card lavender">
+        <h3>⚡ Faster Hiring Decisions</h3>
+        <p>Instant responses reduce delays and improve recruiter productivity.</p>
+    </div>
+    <div class="card sky">
+        <h3>🔐 Secure Integration</h3>
+        <p>Uses Salesforce authentication and API-based data access.</p>
+    </div>
+</section>
+<!-- CHAT ICON -->
+<div id="chat-icon" onclick="toggleChat()">💬</div>
+<!-- CHAT WINDOW -->
+<div id="chat-window">
+    <div class="chat-header">
+        <span>HR Assistant</span>
+        <span style="cursor:pointer" onclick="toggleChat()">✖</span>
+    </div>
+    <div class="chat-body" id="chatbox">
+        <div class="bot">
+            👋 Hello!
+            I am your AI HR Assistant. How can I assist you today?
+        </div>
+    </div>
+    <div class="chat-input">
+        <input id="message" placeholder="Ask about a candidate..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+<script>
+function toggleChat() {
+    const chat = document.getElementById("chat-window");
+    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+}
+function sendMessage() {
+    const input = document.getElementById("message");
+    const msg = input.value.trim();
+    if (!msg) return;
+    const chatbox = document.getElementById("chatbox");
+    chatbox.innerHTML += `<div class="user">${msg}</div>`;
+    input.value = "";
+    fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message: msg })
+    })
+    .then(res => res.json())
+    .then(data => {
+        chatbox.innerHTML += `<div class="bot">${data.reply}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+    })
+    .catch(() => {
+        chatbox.innerHTML += `<div class="bot">⚠️ Something went wrong.</div>`;
+    });
+}
+</script>
+</body>
+</html>
