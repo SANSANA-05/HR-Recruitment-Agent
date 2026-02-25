@@ -64,11 +64,22 @@ def format_multiple_candidates(records):
 
 # 🔥 STRICT DATE FORMAT FOR UPDATE
 def parse_datetime(date_str):
-    """
-    ONLY ACCEPT:
-    DD-MM-YYYY HH:MM AM/PM
-    Example: 20-02-2026 10:30 AM
-    """
+    try:
+        date_str = date_str.upper()  # 🔥 important fix
+        dt = datetime.strptime(date_str, "%d-%m-%Y %I:%M %p")
+
+        ist = pytz.timezone("Asia/Kolkata")
+        dt_ist = ist.localize(dt)
+
+        dt_utc = dt_ist.astimezone(pytz.utc)
+
+        salesforce_format = dt_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        return dt_ist, salesforce_format
+
+    except ValueError as e:
+        print("Date Parse Error:", e)
+        return None, None
 
     try:
         dt = datetime.strptime(date_str, "%d-%m-%Y %I:%M %p")
@@ -123,16 +134,16 @@ def home():
 def chat():
     try:
         user_msg = request.json.get("message", "").strip()
-        msg = user_msg.lower()
 
         # ==================================================
         # ================= UPDATE MODE ====================
         # ==================================================
 
         update_match = re.search(
-            r"update\s+(?:the\s+)?(?P<field>email|status|recruiter|notes|interview date)\s+of\s+(?P<who>[a-zA-Z0-9@.\s]+?)\s+to\s+(?P<value>.+)",
-            msg
-        )
+    r"update\s+(?:the\s+)?(?P<field>email|status|recruiter|notes|interview date)\s+of\s+(?P<who>[a-zA-Z0-9@.\s]+?)\s+to\s+(?P<value>.+)",
+    user_msg,
+    re.IGNORECASE
+)
 
         if update_match:
             field = update_match.group("field")
@@ -184,11 +195,14 @@ def chat():
 
                 formatted = dt_ist.strftime("%d %b %Y, %I:%M %p")
 
-                send_email(
-                    candidate["Candidate_Email__c"],
-                    candidate["Name"],
-                    formatted
-                )
+                try:
+                    send_email(
+        candidate["Candidate_Email__c"],
+        candidate["Name"],
+        formatted
+    )
+                except Exception as e:
+                    print("Email error:", e)
 
                 return jsonify({
                     "reply": f"Interview date updated successfully for {candidate['Name']} and email sent."
