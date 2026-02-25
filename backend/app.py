@@ -1,3 +1,4 @@
+import os
 import re
 import smtplib
 from email.mime.text import MIMEText
@@ -289,5 +290,5 @@ def chat():
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    print("✅ HR Chatbot Backend Running")
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
